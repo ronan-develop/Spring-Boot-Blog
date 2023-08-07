@@ -1,0 +1,78 @@
+@startuml Classes diagram
+
+scale 650 width
+
+skinparam class {
+
+    ArrowColor #631FF2
+    BorderColor #DB2790
+}
+
+TITLE "Spring Boot Blog"
+
+
+class  User {
+
+    # protected username;
+    # protected password;
+    # protected slug;
+    # protected content;
+    # protected user_image;
+    # protected email;
+    # protected role;
+    # protected created_at;
+}
+
+class Post{
+
+    # protected id;
+    # protected user_id;
+    # protected title;
+    # protected content;
+    # protected slug;
+    # protected post_image;
+    # protected created_at;
+    # protected updated_at;
+    # protected is_published;
+}
+
+class Category{
+
+    # protected title;
+    # protected content;
+    # protected slug;
+    # protected image_category;
+    # protected created_at;
+    # protected modified_at;
+}
+
+class Comment {
+
+   # protected title;
+   # protected content;
+   # protected created_at;
+   # protected modified_at;
+   # protected user_id;
+   # protected is_published;
+   # protected post_id;
+}
+
+class PostCategory {
+
+    # protected post_id
+    # protected category_id
+}
+
+/'
+relations between entities
+'/
+
+Category "1..*" - "*..1" Post
+(Category, Post) . PostCategory
+Post " 0..* " *-- " 1 " Comment: has
+Post "0..*" -right- "1" User: write
+
+
+
+footer ""
+@enduml
