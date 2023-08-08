@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,5 +51,17 @@ public class CategoryController {
     public Category fetchCategoryById(@PathVariable("id") Long id) {
 
         return categoryService.fetchCategoryById(id);
+    }
+
+    /**
+     * Delete one Category by id
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/api/categories/{id}")
+    public String deleteCategoryById(@PathVariable("id") Long id) {
+
+        categoryService.deleteCategoryById(id);
+        return "{Category deleted}";
     }
 }
