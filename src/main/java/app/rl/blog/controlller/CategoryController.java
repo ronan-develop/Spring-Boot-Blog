@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,16 @@ public class CategoryController {
     public List<Category> fetchCategorylist() {
 
         return categoryService.fetchCategorylist();
+    }
+
+    /**
+     * Get one category by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/api/categories/{id}")
+    public Category fetchCategoryById(@PathVariable("id") Long id) {
+
+        return categoryService.fetchCategoryById(id);
     }
 }

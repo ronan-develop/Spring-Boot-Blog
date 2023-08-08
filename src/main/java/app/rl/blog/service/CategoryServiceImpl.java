@@ -25,4 +25,10 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryRepository.findAll();
     }
+
+    @Override
+    public Category fetchCategoryById(Long id) {
+
+        return categoryRepository.findById(id).get();
+    }
 }
