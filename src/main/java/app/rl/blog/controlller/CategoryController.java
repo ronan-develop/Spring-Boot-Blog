@@ -16,7 +16,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/category/create")
+    @PostMapping("/api/categories")
     public Category saveCategory(@RequestBody Category category) {
         
         return categoryService.saveCategory(category);
