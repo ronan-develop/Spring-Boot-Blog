@@ -25,21 +25,21 @@ class  User {
 
 class Post{
 
-    # protected id;
-    # protected user_id;
-    # protected title;
-    # protected content;
-    # protected slug;
-    # protected post_image;
-    # protected created_at;
-    # protected updated_at;
-    # protected is_published;
+    # private id;
+    # private user_id;
+    # private title;
+    # private content;
+    # private slug;
+    # private post_image;
+    # private created_at;
+    # private updated_at;
+    # private is_published;
 }
 
 class Category{
 
     # protected title;
-    # protected content;
+    # protected description;
     # protected slug;
     # protected image_category;
     # protected created_at;
