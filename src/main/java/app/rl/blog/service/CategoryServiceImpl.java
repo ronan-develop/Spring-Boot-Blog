@@ -62,8 +62,21 @@ public class CategoryServiceImpl implements CategoryService {
 
             catDB.setSlug(category.getSlug());
         }
-        
+
         // Write Buffer Object in database
         return categoryRepository.save(catDB);
     }
+    
+    @Override
+    public Category fetchCategoryByTitle(String title) {
+
+        return categoryRepository.findByTitleIgnoreCase(title);
+    }
+
+    public Category fetchCategoryByTitleIgnoreCase(String title) {
+
+        return categoryRepository.findByTitleIgnoreCase(title);
+    }
+
+
 }

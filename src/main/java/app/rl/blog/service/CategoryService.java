@@ -11,4 +11,5 @@ public interface CategoryService {
     public Category fetchCategoryById(Long id);
     public Category updateCategory(Long id, Category category);
     public void deleteCategoryById(Long id);
+    public Category fetchCategoryByTitle(String title);
 }
