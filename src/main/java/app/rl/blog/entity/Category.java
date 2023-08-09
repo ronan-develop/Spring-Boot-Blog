@@ -26,5 +26,6 @@ public class Category {
     protected String slug;
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "Please add a description")
     protected String description;    
 }
