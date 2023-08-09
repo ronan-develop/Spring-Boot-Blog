@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Category {
@@ -12,6 +13,7 @@ public class Category {
     @Id
     @GeneratedValue
     protected Long id;
+    @NotBlank(message = "Please add a title")
     protected String title;
     protected String slug;
     @Lob
