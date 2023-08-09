@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.rl.blog.entity.Category;
 import app.rl.blog.service.CategoryService;
+import jakarta.persistence.PostUpdate;
 
 @RestController
 @EnableAutoConfiguration
@@ -63,5 +65,15 @@ public class CategoryController {
 
         categoryService.deleteCategoryById(id);
         return "{Category deleted}";
+    }
+
+
+    @PutMapping("/api/categories/{id}")
+    public Category updateCategory(
+            @PathVariable("id") Long id,
+            @RequestBody Category category
+        ) {
+
+        return categoryService.updateCategory(id, category);
     }
 }
