@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.rl.blog.entity.Category;
 import app.rl.blog.service.CategoryService;
+import jakarta.validation.Valid;
 
 @RestController
 @EnableAutoConfiguration
@@ -28,7 +29,7 @@ public class CategoryController {
      * @return Category
      */
     @PostMapping("/api/categories")
-    public Category saveCategory(@RequestBody Category category) {
+    public Category saveCategory(@Valid @RequestBody Category category) {
 
         return categoryService.saveCategory(category);
     }
