@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.rl.blog.entity.Category;
 import app.rl.blog.service.CategoryService;
-import jakarta.persistence.PostUpdate;
 
 @RestController
 @EnableAutoConfiguration
@@ -72,8 +71,14 @@ public class CategoryController {
     public Category updateCategory(
             @PathVariable("id") Long id,
             @RequestBody Category category
-        ) {
+    ) {
 
         return categoryService.updateCategory(id, category);
+    }
+    
+    @GetMapping("/api/categories/title/{title}")
+    public Category fetchCategoryByTitle(@PathVariable("title") String title) {
+
+        return categoryService.fetchCategoryByTitle(title);
     }
 }
