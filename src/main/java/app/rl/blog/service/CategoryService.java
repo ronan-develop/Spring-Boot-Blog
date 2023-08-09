@@ -9,5 +9,6 @@ public interface CategoryService {
     public Category saveCategory(Category category);
     public List<Category> fetchCategorylist();
     public Category fetchCategoryById(Long id);
-    public void deleteCategoryById (Long id);
+    public Category updateCategory(Long id, Category category);
+    public void deleteCategoryById(Long id);
 }
