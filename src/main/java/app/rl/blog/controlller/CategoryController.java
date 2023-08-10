@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.rl.blog.entity.Category;
+import app.rl.blog.error.CategoryNotFoundException;
 import app.rl.blog.service.CategoryService;
 import jakarta.validation.Valid;
 
@@ -54,11 +55,12 @@ public class CategoryController {
      * Get one category by id
      * @param id
      * @return
+     * @throws CategoryNotFoundException
      */
     @GetMapping("/api/categories/{id}")
-    public Category fetchCategoryById(@PathVariable("id") Long id) {
+    public Category fetchCategoryById(@PathVariable("id") Long id) throws CategoryNotFoundException {
 
-        LOGGER.info("A LogInside fetchCategoryById of CategoryController");
+        LOGGER.info("A Log Inside fetchCategoryById of CategoryController");
         return categoryService.fetchCategoryById(id);
     }
 

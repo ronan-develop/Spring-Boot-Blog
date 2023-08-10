@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.rl.blog.entity.Category;
+import app.rl.blog.error.CategoryNotFoundException;
 import app.rl.blog.repository.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    
+
     @Autowired
     private CategoryRepository categoryRepository;
-    
+
     @Override
     public Category saveCategory(Category category) {
 
@@ -28,9 +29,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category fetchCategoryById(Long id) {
+    public Category fetchCategoryById(Long id) throws CategoryNotFoundException {
+        
+        try {
+            
+            return categoryRepository.findById(id).get();
+        } catch (Exception e) {
 
-        return categoryRepository.findById(id).get();
+            throw new CategoryNotFoundException("the category with id : " +
+                    id + " could not be found on the server");
+        }
+
     }
 
     @Override
@@ -66,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
         // Write Buffer Object in database
         return categoryRepository.save(catDB);
     }
-    
+
     @Override
     public Category fetchCategoryByTitle(String title) {
 
@@ -77,6 +86,5 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryRepository.findByTitleIgnoreCase(title);
     }
-
 
 }
