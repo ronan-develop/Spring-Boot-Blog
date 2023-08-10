@@ -2,7 +2,6 @@ package app.rl.blog.service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category fetchCategoryById(Long id) throws CategoryNotFoundException {
-
-        Optional<Category> category = categoryRepository.findById(id);
-
+        
         try {
-            return category.get();
+            
+            return categoryRepository.findById(id).get();
         } catch (Exception e) {
+
             throw new CategoryNotFoundException("the category with id : " +
                     id + " could not be found on the server");
         }
