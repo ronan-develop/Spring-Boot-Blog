@@ -82,6 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findByTitleIgnoreCase(title);
     }
 
+    @Override
     public Category fetchCategoryByTitleIgnoreCase(String title) {
 
         return categoryRepository.findByTitleIgnoreCase(title);
