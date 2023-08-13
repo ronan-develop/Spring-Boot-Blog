@@ -43,10 +43,8 @@ public class CategoryRepositoryTests {
                 .description("description")
                 .slug("title").build();
 
-        Category savedCategory = categoryRepository.save(category);
-
-        Assertions.assertThat(savedCategory).isNotNull();
-        Assertions.assertThat(savedCategory.getId()).isPositive();
+        Assertions.assertThat(categoryRepository.save(category)).isNotNull();
+        Assertions.assertThat(categoryRepository.save(category).getId()).isPositive();
     }
 
     @Test
