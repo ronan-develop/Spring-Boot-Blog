@@ -1,5 +1,7 @@
 package app.rl.blog.controlller;
 
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -12,6 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import app.rl.blog.entity.Category;
+import app.rl.blog.error.CategoryNotFoundException;
+import app.rl.blog.repository.CategoryRepository;
 import app.rl.blog.service.CategoryService;
 
 @WebMvcTest(CategoryController.class)
@@ -24,6 +28,9 @@ public class CategoryControllerTest {
     private CategoryService categoryService;
 
     private Category category;
+
+    @MockBean
+    private CategoryRepository categoryRepository;
 
     @BeforeEach
     void setUp() {
@@ -38,17 +45,19 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void testDeleteCategoryById() {
+    void testDeleteCategoryById() throws Exception {
 
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/categories/{id}", category.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     void testFetchCategoryById() throws Exception {
 
-        Mockito.when(categoryService.fetchCategoryById(1L))
+        Mockito.when(categoryService.fetchCategoryById(category.getId()))
                 .thenReturn(category);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/categories/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/categories/{id}", category.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(category.getTitle()));
