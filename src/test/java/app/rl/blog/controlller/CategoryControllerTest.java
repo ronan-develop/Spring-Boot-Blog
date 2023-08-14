@@ -31,9 +31,9 @@ public class CategoryControllerTest {
         // in database
         category = Category.builder()
                 .id(1L)
-                .title(null)
-                .slug(null)
-                .description(null)
+                .title("title")
+                .slug("title")
+                .description("description")
                 .build();
     }
 
@@ -43,8 +43,15 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void testFetchCategoryById() {
+    void testFetchCategoryById() throws Exception {
 
+        Mockito.when(categoryService.fetchCategoryById(1L))
+                .thenReturn(category);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/categories/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(category.getTitle()));
     }
 
     @Test
@@ -60,20 +67,21 @@ public class CategoryControllerTest {
     @Test
     void testSaveCategory() throws Exception {
 
-        // send to database for being saved
         Category input = Category.builder()
                 .title(null)
                 .slug(null)
                 .description(null)
                 .build();
-        // Mock needed service
+
         Mockito.when(categoryService.saveCategory(input)).thenReturn(category);
-        // need to call the endpoint
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/categories").contentType(MediaType.APPLICATION_JSON).content("{\n" + //
-                "    \"title\" : \"Title\",\n" + //
-                "    \"slug\" : \"title\",\n" + //
-                "    \"description\" : \"first test connected to database\"\n" + //
-                "}")).andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/categories").contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" + //
+                        "    \"title\" : \"Title\",\n" + //
+                        "    \"slug\" : \"title\",\n" + //
+                        "    \"description\" : \"first test connected to database\"\n" + //
+                        "}"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
