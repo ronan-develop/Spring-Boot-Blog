@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import app.rl.blog.entity.Category;
-import app.rl.blog.error.CategoryNotFoundException;
 import app.rl.blog.repository.CategoryRepository;
 import app.rl.blog.service.CategoryService;
 
@@ -64,8 +63,15 @@ public class CategoryControllerTest {
     }
 
     @Test
-    void testFetchCategoryByTitle() {
+    void testFetchCategoryByTitle() throws Exception {
 
+        Mockito.when(categoryService.fetchCategoryByTitle("title"))
+                .thenReturn(category);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/categories/title/title")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(category.getTitle()));
     }
 
     @Test
