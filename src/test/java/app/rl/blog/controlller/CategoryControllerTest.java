@@ -2,6 +2,10 @@ package app.rl.blog.controlller;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,25 +15,34 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.rl.blog.entity.Category;
 import app.rl.blog.repository.CategoryRepository;
 import app.rl.blog.service.CategoryService;
 
+
+/**
+ * Test Class for the {@link CategoryController}
+ * 
+ * @author Ronan Lenouvel - https://github.com/ronan-develop
+ */
 @WebMvcTest(CategoryController.class)
 public class CategoryControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @MockBean
-    private CategoryService categoryService;
+    @Autowired private ObjectMapper objectMapper;
+
+    @MockBean private CategoryService categoryService;
+    
+    @MockBean private CategoryRepository categoryRepository;
 
     private Category category;
 
-    @MockBean
-    private CategoryRepository categoryRepository;
 
     @BeforeEach
     void setUp() {
@@ -49,7 +62,7 @@ public class CategoryControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/categories/{id}", category.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
+    
     @Test
     void testFetchCategoryById() throws Exception {
 
@@ -74,33 +87,82 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(category.getTitle()));
     }
 
+    /* from here refacto */
     @Test
-    void testFetchCategorylist() {
+    void testFetchCategoryListReturn200StatusOk() throws Exception {
 
+        List<Category> categories = new ArrayList<>();
+
+        categories.add(0, category);
+
+        Category secondCategory = Category.builder()
+                                .id(2L)
+                                .title("title 2")
+                                .slug("title-2")
+                                .description("description 2")
+                                .build();
+
+        categories.add(1, secondCategory);
+
+    when(categoryRepository.findAll()).thenReturn(categories);
+
+    mockMvc.perform(MockMvcRequestBuilders.get("/api/categories"))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+
+    Assertions.assertThat(categories.size()>0);
     }
 
     @Test
-    void testSaveCategory() throws Exception {
+    void testSaveCategoryReturn200StatusOk() throws Exception {
 
-        Category input = Category.builder()
-                .title(null)
-                .slug(null)
-                .description(null)
-                .build();
-
-        Mockito.when(categoryService.saveCategory(input)).thenReturn(category);
+        String requestBody = objectMapper.writeValueAsString(category);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/categories").contentType(MediaType.APPLICATION_JSON)
-                .content("{\n" + //
-                        "    \"title\" : \"Title\",\n" + //
-                        "    \"slug\" : \"title\",\n" + //
-                        "    \"description\" : \"first test connected to database\"\n" + //
-                        "}"))
+                .content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void testUpdateCategory() {
+    void testUpdateCategoryShouldReturn400BadRequest() throws Exception {
 
+        Category wrongFormat = Category.builder()
+                .title(null)
+                .slug(null)
+                .description("description")
+                .build();
+        
+        String requestBody = objectMapper.writeValueAsString(wrongFormat);
+        
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/categories")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void testUpdateCategoryShouldReturn200StatusOk() throws Exception {
+
+        String requestBody = objectMapper.writeValueAsString(category);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/categories")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(requestBody))
+            .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testSaveCategoryShouldReturn400BadRequest() throws Exception {
+
+        Category wrongFormat = Category.builder()
+        .title(null)
+        .description(null)
+        .build();
+
+        String requestBody = objectMapper.writeValueAsString(wrongFormat);
+        
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/categories")
+        .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andDo(MockMvcResultHandlers.print());
     }
 }
