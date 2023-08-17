@@ -1,11 +1,12 @@
 package app.rl.blog.controlller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.api.Assertions;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -104,12 +105,12 @@ public class CategoryControllerTest {
 
         categories.add(1, secondCategory);
 
-    when(categoryRepository.findAll()).thenReturn(categories);
+        when(categoryRepository.findAll()).thenReturn(categories);
 
-    mockMvc.perform(MockMvcRequestBuilders.get("/api/categories"))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/categories"))
+            .andExpect(MockMvcResultMatchers.status().isOk());
 
-    Assertions.assertThat(categories.size()>0);
+        AssertionsForClassTypes.assertThat(categories.size() == 2);
     }
 
     @Test
