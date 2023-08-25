@@ -14,5 +14,13 @@ spring:
 debug: 'true'
 welcome:
   message: welcome to my first API in Java
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans"
+
 server:
   port: '8080'
