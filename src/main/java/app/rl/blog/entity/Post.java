@@ -1,12 +1,13 @@
 package app.rl.blog.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import java.sql.Date;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,13 +15,27 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Table(name = "posts")
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "post_generator"
+        )
     private Long id;
-    private Long userId;
+
+    @Column(name = "createdAt")
+    private Date createdAt;
+
     private String title;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryId", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
+
     @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
