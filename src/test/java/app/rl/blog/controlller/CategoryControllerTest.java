@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import app.rl.blog.controller.CategoryController;
 import app.rl.blog.entity.Category;
 import app.rl.blog.repository.CategoryRepository;
 import app.rl.blog.service.CategoryService;
