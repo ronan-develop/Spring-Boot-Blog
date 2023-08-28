@@ -1,8 +1,10 @@
 package app.rl.blog.entity;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.CreationTimestamp;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,9 +26,12 @@ public class Post {
     private Long id;
 
     @CreationTimestamp
-    @JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "createdAt")
     private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updatedAt")
+    private LocalDateTime updatedAt;
 
     @NotBlank(message = "Please add a title")
     private String title;
