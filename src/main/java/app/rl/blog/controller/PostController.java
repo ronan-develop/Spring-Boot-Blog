@@ -23,6 +23,7 @@ public class PostController {
 
     /**
      * Create one Post
+     * 
      * @param post
      * @return Post
      */
@@ -39,4 +40,5 @@ public class PostController {
         LOGGER.info("List for Posts is being generated");
         return postService.fetchPostList();
     }
+
 }
