@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import app.rl.blog.entity.Category;
 import app.rl.blog.error.CategoryNotFoundException;
 import app.rl.blog.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -17,6 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
+    @Transactional
     public Category saveCategory(Category category) {
     
         return categoryRepository.save(category);
@@ -42,12 +44,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteCategoryById(Long id) {
 
         categoryRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Category updateCategory(Long id, Category category) {
 
         // Buffer Object
@@ -86,5 +90,4 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryRepository.findByTitleIgnoreCase(title);
     }
-
 }
