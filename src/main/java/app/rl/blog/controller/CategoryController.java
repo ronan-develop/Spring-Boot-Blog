@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 @RestController
 @EnableAutoConfiguration
 public class CategoryController {
-    
+
     @Autowired
     private CategoryService categoryService;
 
@@ -25,6 +25,7 @@ public class CategoryController {
 
     /**
      * Create one category
+     * 
      * @param category
      * @return Category
      */
@@ -34,9 +35,10 @@ public class CategoryController {
         LOGGER.info("A Log Inside saveCategory of CategoryController");
         return categoryService.saveCategory(category);
     }
-    
+
     /**
      * Get all Categories
+     * 
      * @return List
      */
     @GetMapping("/api/categories")
@@ -48,6 +50,7 @@ public class CategoryController {
 
     /**
      * Get one category by id
+     * 
      * @param id
      * @return Category
      * @throws CategoryNotFoundException
@@ -61,6 +64,7 @@ public class CategoryController {
 
     /**
      * Delete one Category by id
+     * 
      * @param id
      * @return String
      */
@@ -71,9 +75,9 @@ public class CategoryController {
         return "{Category deleted}";
     }
 
-
     /**
      * Update one category by id
+     * 
      * @param id
      * @param category
      * @return Category
@@ -81,14 +85,14 @@ public class CategoryController {
     @PutMapping("/api/categories/{id}")
     public Category updateCategory(
             @PathVariable("id") Long id,
-            @RequestBody Category category
-    ) {
+            @RequestBody Category category) {
 
         return categoryService.updateCategory(id, category);
     }
-    
+
     /**
      * Get One categoryby the title (insensitive case)
+     * 
      * @param title
      * @return Category
      */
