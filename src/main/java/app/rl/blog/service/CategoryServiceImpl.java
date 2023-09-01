@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Category saveCategory(Category category) {
-    
+
         return categoryRepository.save(category);
     }
 
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category fetchCategoryById(Long id) throws CategoryNotFoundException {
-        
+
         try {
             return categoryRepository.findById(id).get();
         } catch (Exception e) {
