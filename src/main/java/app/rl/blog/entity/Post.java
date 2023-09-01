@@ -1,6 +1,5 @@
 package app.rl.blog.entity;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,41 +7,110 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.ToString;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Table(name = "posts")
+@Table(name = "post")
+@ToString
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @NotBlank(message = "Please add a title")
+    //@NotBlank(message = "Please add a title")
+    @Column(name = "title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "category_id")
+    @NotNull
+    @JoinColumn(name = "category_id")
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH })
     private Category category;
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    @NotBlank(message = "Please add a content")
+    @NotBlank(message = "Please add some content")
     private String content;
+
+    @Column(name = "slug")
     private String slug;
+
+    public Post() {}
+
+    public Post(LocalDateTime createdAt, LocalDateTime updatedAt,
+            @NotBlank(message = "Please add a title") String title,
+            @NotBlank(message = "Please add a content") String content, String slug) {
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.title = title;
+        this.content = content;
+        this.slug = slug;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
