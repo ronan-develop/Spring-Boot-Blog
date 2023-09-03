@@ -8,11 +8,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.ToString;
 
 @Entity
-@Table(name = "post")
 @ToString
+@Builder
+@Table(name = "post")
 public class Post {
 
     @Id
@@ -28,7 +30,7 @@ public class Post {
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    //@NotBlank(message = "Please add a title")
+    @NotBlank(message = "Please add a title")
     @Column(name = "title")
     private String title;
 
@@ -45,18 +47,6 @@ public class Post {
 
     @Column(name = "slug")
     private String slug;
-
-    public Post() {}
-
-    public Post(LocalDateTime createdAt, LocalDateTime updatedAt,
-            @NotBlank(message = "Please add a title") String title,
-            @NotBlank(message = "Please add a content") String content, String slug) {
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.title = title;
-        this.content = content;
-        this.slug = slug;
-    }
 
     public Long getId() {
         return id;
