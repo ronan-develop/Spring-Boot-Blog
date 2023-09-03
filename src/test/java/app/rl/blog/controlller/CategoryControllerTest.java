@@ -94,7 +94,14 @@ public class CategoryControllerTest {
 
         List<Category> categories = new ArrayList<>();
 
-        categories.add(0, category);
+        Category firstCategory = Category.builder()
+                                .id(1L)
+                                .title("title 1")
+                                .slug("tilte1")
+                                .description("description 1")
+                                .build();
+
+        categories.add(0, firstCategory);
 
         Category secondCategory = Category.builder()
                                 .id(2L)
