@@ -9,4 +9,5 @@ public interface PostService {
 
     public Post savePost(@Valid Post post);
     public List<Post> fetchPostList();
+    public void deletePostById(Long id);
 }

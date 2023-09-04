@@ -25,4 +25,10 @@ public class PostServiceImpl implements PostService {
 
         return postRepository.findAll();
     }
+
+    @Override
+    public void deletePostById(Long id) {
+
+        postRepository.deleteById(id);
+    }
 }
