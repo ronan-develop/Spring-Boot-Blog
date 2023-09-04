@@ -34,11 +34,23 @@ public class PostController {
         return postService.savePost(post);
     }
 
+    /**
+     * Get All Posts
+     * 
+     * @return List
+     */
     @GetMapping("/api/posts")
     public List<Post> fecthPostsList() {
 
         LOGGER.info("List for Posts is being generated");
         return postService.fetchPostList();
+    }
+
+    @DeleteMapping("/api/post/{id}")
+    public String deletePostById(@PathVariable("id") Long id) {
+
+        postService.deletePostById(id);
+        return "{Post deleted}";
     }
 
 }
