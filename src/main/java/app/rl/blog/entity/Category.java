@@ -3,6 +3,8 @@ package app.rl.blog.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,7 @@ public class Category {
     protected String description;
 
     // mappedBy refers to the category property in Post Class
+    // @JsonManagedReference
     @OneToMany(mappedBy = "category", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH })
     private List<Post> posts;
