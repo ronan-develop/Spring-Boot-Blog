@@ -8,12 +8,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 @Entity
-@ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "post")
 public class Post {
 
