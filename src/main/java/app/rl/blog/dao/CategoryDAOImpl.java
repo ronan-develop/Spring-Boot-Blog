@@ -54,7 +54,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Transactional
     public Category updateCategory(Long id, Category category) {
 
-        // Buffer Object
+        // Buffered Object
         Category catDB = categoryRepository.findById(id).get();
 
         if (Objects.nonNull(category.getTitle()) &&
