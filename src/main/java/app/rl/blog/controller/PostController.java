@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import app.rl.blog.dao.PostDAO;
 import app.rl.blog.entity.Post;
-import app.rl.blog.service.PostService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 public class PostController {
 
     @Autowired
-    private PostService postService;
+    private PostDAO postService;
 
     private final Logger LOGGER = LoggerFactory.getLogger(PostController.class);
 
@@ -44,6 +44,18 @@ public class PostController {
 
         LOGGER.info("List for Posts is being generated");
         return postService.fetchPostList();
+    }
+
+    /**
+     * Get All Posts by CategoryId
+     * 
+     * @param id
+     * @return List
+     */
+    @GetMapping("/api/category/{id}/post")
+    public List<Post> fetchPostsByCategoryId(Long id) {
+        LOGGER.info("List for Posts is being generated");
+        return postService.fetchPostsByCategoryId(id);
     }
 
     @DeleteMapping("/api/post/{id}")

@@ -2,7 +2,6 @@ package app.rl.blog.controlller;
 
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +15,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import app.rl.blog.controller.PostController;
+import app.rl.blog.dao.PostDAO;
 import app.rl.blog.entity.Category;
 import app.rl.blog.entity.Post;
 import app.rl.blog.repository.PostRepository;
-import app.rl.blog.service.PostService;
 
 /**
  * Test Class for the {@link PostController}
@@ -32,7 +31,7 @@ public class PostControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private PostService postService;
+    private PostDAO postService;
 
     @MockBean
     private PostRepository postRepository;
@@ -59,7 +58,7 @@ public class PostControllerTest {
                 .slug("post-1")
                 .title("Post 1")
                 .content("content 1")
-                .createdAt(LocalDateTime.now())
+                //.createdAt(LocalDateTime.now())
                 .build();
         posts.add(post1);
         when(postRepository.findAll()).thenReturn(posts);
