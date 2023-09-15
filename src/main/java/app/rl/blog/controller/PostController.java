@@ -71,6 +71,13 @@ public class PostController {
         return "{\"message\": \"Post deleted\"}";
     }
 
+    /**
+     * Update a Post by id
+     * 
+     * @param id
+     * @param post
+     * @return Post
+     */
     @PutMapping("/api/posts/{id}")
     public Post updatePost(
         @PathVariable("id") Long id,
