@@ -1,10 +1,10 @@
-package app.rl.blog.service;
+package app.rl.blog.dao;
 
 import java.util.List;
 import app.rl.blog.entity.Category;
 import app.rl.blog.error.CategoryNotFoundException;
 
-public interface CategoryService {
+public interface CategoryDAO {
 
     public Category saveCategory(Category category);
 

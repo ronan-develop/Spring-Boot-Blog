@@ -1,4 +1,4 @@
-package app.rl.blog.service;
+package app.rl.blog.dao;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import app.rl.blog.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryDAOImpl implements CategoryDAO {
 
     @Autowired
     private CategoryRepository categoryRepository;
