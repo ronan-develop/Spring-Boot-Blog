@@ -1,11 +1,13 @@
 package app.rl.blog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import app.rl.blog.dao.PostDAO;
 import app.rl.blog.entity.Post;
+import app.rl.blog.error.PostNotFoundException;
 import jakarta.validation.Valid;
 
 @Service
@@ -47,6 +49,14 @@ public class PostServiceImpl implements PostService{
 
         return postDAO.updatePost(id, post);
     }
-    
+
+    @Override
+    public Post fetchPostById(Long id) throws PostNotFoundException {
+
+        return postDAO.fetchPostById(id);
+    }
+
+
+        
 
 }

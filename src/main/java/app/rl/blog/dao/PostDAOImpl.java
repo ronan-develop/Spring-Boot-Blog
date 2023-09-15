@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.rl.blog.entity.Post;
+import app.rl.blog.error.PostNotFoundException;
 import app.rl.blog.repository.PostRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -77,5 +78,16 @@ public class PostDAOImpl implements PostDAO {
         postDB.setUpdatedAt(LocalDateTime.now());
 
         return postRepository.save(postDB);
+    }
+
+    @Override
+    public Post fetchPostById(Long id) throws PostNotFoundException {
+
+        try {
+            return postRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new PostNotFoundException("The post with id" +
+            id + " could not be found on the server");
+        }
     }
 }
