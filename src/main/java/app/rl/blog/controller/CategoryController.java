@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
-import app.rl.blog.dao.CategoryDAO;
 import app.rl.blog.entity.Category;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.rl.blog.error.CategoryNotFoundException;
