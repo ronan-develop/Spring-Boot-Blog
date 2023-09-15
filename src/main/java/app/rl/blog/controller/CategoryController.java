@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import app.rl.blog.entity.Category;
+import org.springframework.web.bind.annotation.PostMapping;
 import app.rl.blog.error.CategoryNotFoundException;
 import app.rl.blog.service.CategoryService;
 import jakarta.validation.Valid;
@@ -16,7 +17,7 @@ import jakarta.validation.Valid;
 @RestController
 @EnableAutoConfiguration
 public class CategoryController {
-    
+
     @Autowired
     private CategoryService categoryService;
 
@@ -24,6 +25,7 @@ public class CategoryController {
 
     /**
      * Create one category
+     * 
      * @param category
      * @return Category
      */
@@ -33,9 +35,10 @@ public class CategoryController {
         LOGGER.info("A Log Inside saveCategory of CategoryController");
         return categoryService.saveCategory(category);
     }
-    
+
     /**
      * Get all Categories
+     * 
      * @return List
      */
     @GetMapping("/api/categories")
@@ -47,8 +50,9 @@ public class CategoryController {
 
     /**
      * Get one category by id
+     * 
      * @param id
-     * @return
+     * @return Category
      * @throws CategoryNotFoundException
      */
     @GetMapping("/api/categories/{id}")
@@ -60,8 +64,9 @@ public class CategoryController {
 
     /**
      * Delete one Category by id
+     * 
      * @param id
-     * @return
+     * @return String
      */
     @DeleteMapping("/api/categories/{id}")
     public String deleteCategoryById(@PathVariable("id") Long id) {
@@ -70,16 +75,27 @@ public class CategoryController {
         return "{Category deleted}";
     }
 
-
+    /**
+     * Update one category by id
+     * 
+     * @param id
+     * @param category
+     * @return Category
+     */
     @PutMapping("/api/categories/{id}")
     public Category updateCategory(
             @PathVariable("id") Long id,
-            @RequestBody Category category
-    ) {
+            @RequestBody Category category) {
 
         return categoryService.updateCategory(id, category);
     }
-    
+
+    /**
+     * Get One categoryby the title (insensitive case)
+     * 
+     * @param title
+     * @return Category
+     */
     @GetMapping("/api/categories/title/{title}")
     public Category fetchCategoryByTitle(@PathVariable("title") String title) {
 

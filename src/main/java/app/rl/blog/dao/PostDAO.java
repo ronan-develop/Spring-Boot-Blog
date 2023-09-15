@@ -1,15 +1,12 @@
-package app.rl.blog.service;
+package app.rl.blog.dao;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
 
 import app.rl.blog.entity.Post;
 import jakarta.validation.Valid;
 
-@Service
-public interface PostService {
-    
+public interface PostDAO {
+
     public Post savePost(@Valid Post post);
 
     public List<Post> fetchPostList();
@@ -18,5 +15,5 @@ public interface PostService {
     
     public void deletePostById(Long id);
 
-    public Post updatePost(Long id, @Valid Post post);
+    public Post updatePost(Long id, Post post);
 }

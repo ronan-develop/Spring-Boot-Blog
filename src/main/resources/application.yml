@@ -1,5 +1,7 @@
 spring:
   profile: dev
+  main:
+    banner-mode: off
   h2:
     console:
       enabled: 'true'
@@ -22,6 +24,17 @@ management:
       exposure:
         include: "*"
         exclude: "env, beans"
+
+logging:
+  level:
+    root: warn
+    org:
+      hibernate:
+        SQL: trace
+        orm:
+          jdbc:
+            bind: trace
+
 
 server:
   port: '8080'
