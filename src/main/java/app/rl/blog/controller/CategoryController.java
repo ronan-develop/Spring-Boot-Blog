@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import app.rl.blog.dao.CategoryDAO;
 import app.rl.blog.entity.Category;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.rl.blog.error.CategoryNotFoundException;
@@ -29,12 +30,12 @@ public class CategoryController {
      * @param category
      * @return Category
      */
-    @PostMapping("/api/categories")
-    public Category saveCategory(@Valid @RequestBody Category category) {
+    // @PostMapping("/api/categories")
+    // public Category saveCategory(@Valid @RequestBody Category category) {
 
-        LOGGER.info("A Log Inside saveCategory of CategoryController");
-        return categoryService.saveCategory(category);
-    }
+    //     LOGGER.info("A Log Inside saveCategory of CategoryController");
+    //     return categoryService.saveCategory(category);
+    // }
 
     /**
      * Get all Categories
@@ -55,12 +56,12 @@ public class CategoryController {
      * @return Category
      * @throws CategoryNotFoundException
      */
-    @GetMapping("/api/categories/{id}")
-    public Category fetchCategoryById(@PathVariable("id") Long id) throws CategoryNotFoundException {
+    // @GetMapping("/api/categories/{id}")
+    // public Category fetchCategoryById(@PathVariable("id") Long id) throws CategoryNotFoundException {
 
-        LOGGER.info("A Log Inside fetchCategoryById of CategoryController");
-        return categoryService.fetchCategoryById(id);
-    }
+    //     LOGGER.info("A Log Inside fetchCategoryById of CategoryController");
+    //     return categoryService.fetchCategoryById(id);
+    // }
 
     /**
      * Delete one Category by id
@@ -68,12 +69,12 @@ public class CategoryController {
      * @param id
      * @return String
      */
-    @DeleteMapping("/api/categories/{id}")
-    public String deleteCategoryById(@PathVariable("id") Long id) {
+    // @DeleteMapping("/api/categories/{id}")
+    // public String deleteCategoryById(@PathVariable("id") Long id) {
 
-        categoryService.deleteCategoryById(id);
-        return "{Category deleted}";
-    }
+    //     categoryService.deleteCategoryById(id);
+    //     return "{Category deleted}";
+    // }
 
     /**
      * Update one category by id
@@ -82,13 +83,13 @@ public class CategoryController {
      * @param category
      * @return Category
      */
-    @PutMapping("/api/categories/{id}")
-    public Category updateCategory(
-            @PathVariable("id") Long id,
-            @RequestBody Category category) {
+    // @PutMapping("/api/categories/{id}")
+    // public Category updateCategory(
+    //         @PathVariable("id") Long id,
+    //         @RequestBody Category category) {
 
-        return categoryService.updateCategory(id, category);
-    }
+    //     return categoryService.updateCategory(id, category);
+    // }
 
     /**
      * Get One categoryby the title (insensitive case)
@@ -96,9 +97,9 @@ public class CategoryController {
      * @param title
      * @return Category
      */
-    @GetMapping("/api/categories/title/{title}")
-    public Category fetchCategoryByTitle(@PathVariable("title") String title) {
+    // @GetMapping("/api/categories/title/{title}")
+    // public Category fetchCategoryByTitle(@PathVariable("title") String title) {
 
-        return categoryService.fetchCategoryByTitle(title);
-    }
+    //     return categoryService.fetchCategoryByTitle(title);
+    // }
 }
