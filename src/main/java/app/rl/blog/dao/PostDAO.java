@@ -14,4 +14,6 @@ public interface PostDAO {
     public List<Post> fetchPostsByCategoryId(Long id);
     
     public void deletePostById(Long id);
+
+    public Post updatePost(Long id, Post post);
 }

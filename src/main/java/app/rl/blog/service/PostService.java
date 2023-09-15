@@ -17,4 +17,6 @@ public interface PostService {
     public List<Post> fetchPostsByCategoryId(Long id);
     
     public void deletePostById(Long id);
+
+    public Post updatePost(Long id, @Valid Post post);
 }

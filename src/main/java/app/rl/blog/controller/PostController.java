@@ -52,17 +52,32 @@ public class PostController {
      * @param id
      * @return List
      */
-    @GetMapping("/api/category/{id}/post")
+    @GetMapping("/api/category/{id}/posts")
     public List<Post> fetchPostsByCategoryId(Long id) {
         LOGGER.info("List for Posts is being generated");
         return postService.fetchPostsByCategoryId(id);
     }
 
-    @DeleteMapping("/api/post/{id}")
+    /**
+     * Delete One Post by Id
+     * 
+     * @param id
+     * @return String message
+     */
+    @DeleteMapping("/api/posts/{id}")
     public String deletePostById(@PathVariable("id") Long id) {
 
         postService.deletePostById(id);
-        return "{Post deleted}";
+        return "{\"message\": \"Post deleted\"}";
+    }
+
+    @PutMapping("/api/posts/{id}")
+    public Post updatePost(
+        @PathVariable("id") Long id,
+        @RequestBody Post post
+    ) {
+
+        return postService.updatePost(id, post);
     }
 
 }
