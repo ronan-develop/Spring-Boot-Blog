@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
-import app.rl.blog.dao.PostDAO;
 import app.rl.blog.entity.Post;
+import app.rl.blog.service.PostService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 public class PostController {
 
     @Autowired
-    private PostDAO postService;
+    private PostService postService;
 
     private final Logger LOGGER = LoggerFactory.getLogger(PostController.class);
 
